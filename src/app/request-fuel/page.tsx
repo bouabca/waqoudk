@@ -65,15 +65,32 @@ export default function RequestFuelPage() {
     fetch('/api/auth/me').then(r => { if (!r.ok) { router.push('/login'); return null } }).catch(() => router.push('/login'))
   }, [])
 
+  function addDriverMarkers(L: any, map: any) {
+    driverMarkersRef.current.forEach((m: any) => m.remove())
+    driverMarkersRef.current = []
+    const seen = new Set<string>()
+    drivers.forEach((driver) => {
+      if (!driver.lat || !driver.lng) return
+      const key = `${driver.lat},${driver.lng}`
+      if (seen.has(key)) return
+      seen.add(key)
+      const marker = L.marker([driver.lat, driver.lng], {
+        icon: L.divIcon({
+          className: '',
+          html: `<div style="background:${theme.colors.ink};color:white;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid white">🚚</div>`,
+          iconSize: [30, 30],
+          iconAnchor: [15, 30],
+        }),
+      }).addTo(map)
+      marker.bindPopup(`<div dir="rtl" style="text-align:right;font-family:Arial"><b>${driver.name}</b><br/>⭐ ${driver.rating} | 📞 ${driver.phone}<br/>${driver.isAvailable ? '🟢 متاح' : '🔴 مشغول'}</div>`)
+      driverMarkersRef.current.push(marker)
+    })
+  }
+
   useEffect(() => {
     let cancelled = false
 
     async function init() {
-      const res = await fetch('/api/drivers')
-      const data = await res.json()
-      if (cancelled) return
-      setDrivers(data.drivers || [])
-
       if (typeof window === 'undefined' || !mapRef.current) return
       const L = (await import('leaflet')).default
       await import('leaflet/dist/leaflet.css')
@@ -83,37 +100,17 @@ export default function RequestFuelPage() {
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors' }).addTo(map)
       leafletRef.current = L
       mapInstance.current = map
+
+      const res = await fetch('/api/drivers')
+      const data = await res.json()
+      if (cancelled) return
+      setDrivers(data.drivers || [])
+      addDriverMarkers(L, map)
     }
 
     init()
     return () => { cancelled = true; driverMarkersRef.current.forEach((m: any) => m.remove()); driverMarkersRef.current = []; if (mapInstance.current) { mapInstance.current.remove(); mapInstance.current = null } }
   }, [])
-
-  useEffect(() => {
-    const L = leafletRef.current
-    if (!L || !mapInstance.current) return
-    driverMarkersRef.current.forEach((m: any) => m.remove())
-    driverMarkersRef.current = []
-
-    const seen = new Set<string>()
-    drivers.forEach((driver) => {
-      if (!driver.lat || !driver.lng) return
-      const key = `${driver.lat},${driver.lng}`
-      if (seen.has(key)) return
-      seen.add(key)
-
-      const marker = L.marker([driver.lat, driver.lng], {
-        icon: L.divIcon({
-          className: '',
-          html: `<div style="background:${theme.colors.ink};color:white;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid white">🚚</div>`,
-          iconSize: [30, 30],
-          iconAnchor: [15, 30],
-        }),
-      }).addTo(mapInstance.current)
-      marker.bindPopup(`<div dir="rtl" style="text-align:right;font-family:Arial"><b>${driver.name}</b><br/>⭐ ${driver.rating} | 📞 ${driver.phone}<br/>${driver.isAvailable ? '🟢 متاح' : '🔴 مشغول'}</div>`)
-      driverMarkersRef.current.push(marker)
-    })
-  }, [drivers])
 
   const handleSubmit = async () => {
     setError('')
