@@ -65,7 +65,7 @@ export default function HomePage() {
 
       <div style={{ padding: '0 16px' }}>
           <button style={styles.ctaButton} onClick={() => router.push('/request-fuel')}>
-          طلب ماريت الآن
+          طلب مازوت الآن
         </button>
         <button style={styles.secondaryButton} onClick={() => router.push('/register')}>
           إنشاء حساب جديد
