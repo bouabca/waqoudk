@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String   @unique
+  email       String?  @unique
+  password    String
+  accountType String   @default("user") // "user" or "livreur"
+  category    String?  // for users: "فلاح", "ورشةبناء", "وكالةنقل"
+  address     String?
+  avatar      String?
+  isVerified  Boolean  @default(false)
+  // Livreur-specific fields
+  driverPermit String? // file path to uploaded permit document
+  isAvailable  Boolean @default(true)
+  rating       Float   @default(0)
+  lat          Float?
+  lng          Float?
+  createdAt   DateTime @default(now())
+
+  orders          Order[]          @relation("UserOrders")
+  assignedOrders  Order[]          @relation("DriverOrders")
+  sessions        Session[]
+  emailVerifications EmailVerification[]
+}
+
+model EmailVerification {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Order {
+  id          String   @id @default(cuid())
+  orderNumber String   @unique
+  status      String   @default("pending") // pending, approved, in_progress, completed, cancelled
+  totalPrice  Float
+  itemPrice   Float
+  deliveryFee Float
+  discount    Float    @default(0)
+  quantity    Float
+  address     String?
+  lat         Float?
+  lng         Float?
+  category    String?  // the category requested (فلاح, ورشةبناء, وكالةنقل)
+  // Driver info
+  driverId    String?
+  driverName  String?
+  driverRating Float?
+  driverPhone String?
+  driverAvatar String?
+  // Rating & Review
+  isRated     Boolean  @default(false)
+  rating      Int?     // 1-5 star rating
+  review      String?  // user's written review
+  completedAt DateTime?
+  // Relations
+  userId      String
+  createdAt   DateTime @default(now())
+
+  user   User @relation("UserOrders", fields: [userId], references: [id])
+  driver User? @relation("DriverOrders", fields: [driverId], references: [id])
+}
+
+model Station {
+  id           String @id @default(cuid())
+  name         String
+  location     String
+  lat          Float
+  lng          Float
+  phone        String
+  hours        String
+  currentPrice Float
+  logo         String
+}

@@ -1,0 +1,97 @@
+export const theme = {
+  colors: {
+    primary: '#000000',
+    onPrimary: '#ffffff',
+    ink: '#000000',
+    body: '#5e5e5e',
+    mute: '#afafaf',
+    hairlineMid: '#4b4b4b',
+    canvas: '#ffffff',
+    canvasSoft: '#efefef',
+    canvasSofter: '#f3f3f3',
+    surfacePressed: '#e2e2e2',
+    onDark: '#ffffff',
+    blackElevated: '#282828',
+    success: '#2D7D3B',
+    error: '#D32F2F',
+    warning: '#FFA000',
+  },
+  spacing: {
+    xxs: '4px', xs: '6px', sm: '8px', md: '12px', lg: '16px', xl: '20px', '2xl': '24px', '3xl': '32px',
+  },
+  rounded: {
+    none: '0px', md: '8px', lg: '12px', xl: '16px', pill: '999px', pillTab: '36px', full: '9999px',
+  },
+  fontFamily: {
+    display: 'UberMove, UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif',
+    text: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif',
+  },
+  typography: {
+    displayXxl: { fontFamily: 'UberMove, UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '52px', fontWeight: 700, lineHeight: '64px' },
+    displayXl: { fontFamily: 'UberMove, UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '36px', fontWeight: 700, lineHeight: '44px' },
+    displayLg: { fontFamily: 'UberMove, UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '32px', fontWeight: 700, lineHeight: '40px' },
+    displayMd: { fontFamily: 'UberMove, UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '24px', fontWeight: 700, lineHeight: '32px' },
+    displaySm: { fontFamily: 'UberMove, UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '20px', fontWeight: 700, lineHeight: '28px' },
+    bodyLg: { fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '18px', fontWeight: 500, lineHeight: '24px' },
+    bodyMd: { fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '16px', fontWeight: 400, lineHeight: '24px' },
+    bodyMdStrong: { fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '16px', fontWeight: 500, lineHeight: '20px' },
+    bodySm: { fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '14px', fontWeight: 400, lineHeight: '20px' },
+    bodySmStrong: { fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '14px', fontWeight: 500, lineHeight: '16px' },
+    caption: { fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '12px', fontWeight: 400, lineHeight: '20px' },
+    buttonLarge: { fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '18px', fontWeight: 500, lineHeight: '24px' },
+    buttonMd: { fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif', fontSize: '16px', fontWeight: 500, lineHeight: '20px' },
+  },
+  shadow: {
+    level1: 'rgba(0,0,0,0.12) 0px 4px 16px 0px',
+    level2: 'rgba(0,0,0,0.16) 0px 4px 16px 0px',
+    level3: 'rgba(0,0,0,0.16) 0px 2px 8px 0px',
+  },
+  buttonPrimary: {
+    backgroundColor: '#000000', color: '#ffffff', borderRadius: '999px', padding: '12px 12px',
+    fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif',
+    fontSize: '16px', fontWeight: 500, lineHeight: '20px', border: 'none', cursor: 'pointer',
+  },
+  buttonSecondary: {
+    backgroundColor: '#ffffff', color: '#000000', borderRadius: '999px', padding: '12px 12px',
+    fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif',
+    fontSize: '16px', fontWeight: 500, lineHeight: '20px', border: 'none', cursor: 'pointer',
+    boxShadow: 'rgba(0,0,0,0.12) 0px 2px 8px 0px',
+  },
+  buttonSubtle: {
+    backgroundColor: '#efefef', color: '#000000', borderRadius: '999px', padding: '12px 20px',
+    fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif',
+    fontSize: '16px', fontWeight: 500, lineHeight: '20px', border: 'none', cursor: 'pointer',
+  },
+  buttonLarge: {
+    backgroundColor: '#000000', color: '#ffffff', borderRadius: '16px', padding: '16px 20px',
+    fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif',
+    fontSize: '18px', fontWeight: 500, lineHeight: '24px', border: 'none', cursor: 'pointer',
+  },
+  cardContent: {
+    backgroundColor: '#ffffff', color: '#000000', borderRadius: '16px', padding: '24px',
+  },
+  cardElevated: {
+    backgroundColor: '#ffffff', color: '#000000', borderRadius: '16px', padding: '24px',
+    boxShadow: 'rgba(0,0,0,0.12) 0px 4px 16px 0px',
+  },
+  cardSoftTinted: {
+    backgroundColor: '#efefef', color: '#000000', borderRadius: '16px', padding: '24px',
+  },
+  textInput: {
+    backgroundColor: '#efefef', color: '#000000', borderRadius: '8px', padding: '16px',
+    fontFamily: 'UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif',
+    fontSize: '16px', fontWeight: 400, lineHeight: '24px', border: 'none', outline: 'none',
+    width: '100%', boxSizing: 'border-box' as const,
+  },
+  container: {
+    maxWidth: 430, margin: '0 auto', backgroundColor: '#ffffff',
+    minHeight: '100vh', direction: 'rtl' as const,
+  },
+  status: {
+    pending: '#FFA000',
+    in_progress: '#000000',
+    completed: '#2D7D3B',
+    cancelled: '#757575',
+    approved: '#000000',
+  },
+} as const

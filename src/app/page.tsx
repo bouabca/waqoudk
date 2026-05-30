@@ -1,65 +1,96 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { useRouter } from 'next/navigation'
+import { theme } from '@/lib/theme'
+
+const styles = {
+  container: { ...theme.container } as const,
+  header: { backgroundColor: theme.colors.primary, padding: '32px 16px 24px', textAlign: 'center' as const, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: 8 } as const,
+  logoRow: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 } as const,
+  logoIcon: { width: 36, height: 36, fontSize: 24 } as const,
+  logoText: { ...theme.typography.displayMd, color: theme.colors.onPrimary } as const,
+  subtitle: { ...theme.typography.bodySm, color: theme.colors.onPrimary, opacity: 0.9 } as const,
+  desc: { ...theme.typography.bodySm, color: theme.colors.body, textAlign: 'center' as const, lineHeight: 1.6, padding: '16px 16px 0' } as const,
+  locationBadge: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, marginTop: 12, color: theme.colors.primary, fontSize: 13, fontWeight: 500, fontFamily: theme.fontFamily.text } as const,
+  grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, padding: '16px', direction: 'rtl' as const } as const,
+  gridItem: { backgroundColor: theme.colors.canvasSoft, borderRadius: theme.rounded.xl, padding: '16px 12px', display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: 8, cursor: 'pointer', border: 'none', width: '100%' } as const,
+  iconBox: { width: 44, height: 44, borderRadius: theme.rounded.lg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 } as const,
+  gridLabel: { color: theme.colors.ink, fontSize: 12, fontWeight: 500, textAlign: 'center' as const, fontFamily: theme.fontFamily.text } as const,
+  badge: { fontSize: 10, color: theme.colors.primary, fontWeight: 600, fontFamily: theme.fontFamily.text } as const,
+  ctaButton: { ...theme.buttonPrimary, width: '100%', marginTop: 8 } as const,
+  secondaryButton: { ...theme.buttonSecondary, width: '100%', marginTop: 8 } as const,
+  secondaryLink: { display: 'block', textAlign: 'center' as const, color: theme.colors.primary, fontSize: 13, marginTop: 16, marginBottom: 24, fontFamily: theme.fontFamily.text } as const,
+  footer: { padding: '16px', display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' as const, marginBottom: 32 } as const,
+  trustItem: { display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: 4, fontSize: 11, color: theme.colors.body, fontFamily: theme.fontFamily.text } as const,
+}
+
+const navItems = [
+  { icon: '🚛', label: 'تحقق من طلب', badge: '24/7', color: theme.colors.canvasSoft },
+  { icon: '📍', label: 'مراسلة قرب منك', badge: '100%', color: '#E3F2FD' },
+  { icon: '🚗', label: 'عرض سيارات متاحة', badge: '31 / دج', color: '#FFF3E0' },
+  { icon: '⚙️', label: 'قائمة المزيد', badge: 'سيدي بلعباس', color: '#F3E5F5' },
+]
+
+export default function HomePage() {
+  const router = useRouter()
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div style={styles.container}>
+      <div style={styles.header}>
+        <div style={styles.logoRow}>
+          <span style={styles.logoIcon}>🌿</span>
+          <span style={styles.logoText}>وقودك</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div style={styles.subtitle}>مرحبا بك في وقودك</div>
+      </div>
+
+      <p style={styles.desc}>
+        وقودك هو تطبيق توصيل المحروقات إلى باب منزلك أو سيارتك أينما كنت. اطلب الآن واستمتع بخدمة سريعة وآمنة.
+      </p>
+
+      <div style={styles.locationBadge}>
+        <span>📍</span>
+        <span>سيدي بلعباس فقط</span>
+      </div>
+
+      <div style={styles.grid}>
+        {navItems.map((item, i) => (
+          <button key={i} style={styles.gridItem} onClick={() => router.push('/login')}>
+            <div style={{ ...styles.iconBox, backgroundColor: item.color }}>{item.icon}</div>
+            <span style={styles.gridLabel}>{item.label}</span>
+            <span style={styles.badge}>{item.badge}</span>
+          </button>
+        ))}
+      </div>
+
+      <div style={{ padding: '0 16px' }}>
+          <button style={styles.ctaButton} onClick={() => router.push('/request-fuel')}>
+          طلب ماريت الآن
+        </button>
+        <button style={styles.secondaryButton} onClick={() => router.push('/register')}>
+          إنشاء حساب جديد
+        </button>
+        <a href="/register" style={styles.secondaryLink}>لست لديك حساب؟ المحل الآن</a>
+      </div>
+
+      <div style={styles.footer}>
+        <div style={styles.trustItem}>
+          <span style={{ fontSize: 18 }}>🔒</span>
+          <span>دفع آمن</span>
         </div>
-      </main>
+        <div style={styles.trustItem}>
+          <span style={{ fontSize: 18 }}>🚚</span>
+          <span>توصيل سريع</span>
+        </div>
+        <div style={styles.trustItem}>
+          <span style={{ fontSize: 18 }}>⭐</span>
+          <span>خدمة موثوقة</span>
+        </div>
+        <div style={styles.trustItem}>
+          <span style={{ fontSize: 18 }}>📞</span>
+          <span>دعم 24/7</span>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
