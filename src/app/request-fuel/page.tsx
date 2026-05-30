@@ -62,6 +62,10 @@ export default function RequestFuelPage() {
   const [orderResult, setOrderResult] = useState<any>(null)
 
   useEffect(() => {
+    fetch('/api/auth/me').then(r => { if (!r.ok) { router.push('/login'); return null } }).catch(() => router.push('/login'))
+  }, [])
+
+  useEffect(() => {
     let cancelled = false
 
     async function init() {

@@ -4,7 +4,12 @@ import { getCurrentUser } from '@/lib/auth'
 
 export async function GET() {
   try {
+    const user = await getCurrentUser()
+    if (!user) {
+      return Response.json({ error: 'غير مصرح به' }, { status: 401 })
+    }
     const orders = await prisma.order.findMany({
+      where: { userId: user.id },
       include: { user: { select: { id: true, name: true, phone: true } } },
       orderBy: { createdAt: 'desc' },
     })
