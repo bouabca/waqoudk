@@ -52,9 +52,7 @@ export async function POST(request: NextRequest) {
       data: { userId: user.id, token: otp, expiresAt },
     })
 
-    sendOtpEmail(email, otp).catch((err) => {
-      console.error('[Register] Email send failed:', err)
-    })
+    await sendOtpEmail(email, otp)
 
     if (accountType === 'livreur' && driverPermit) {
       uploadBase64Image(driverPermit)
